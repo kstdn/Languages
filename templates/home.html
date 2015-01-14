@@ -1,0 +1,25 @@
+<div id="content" class="col-md-8">
+	<div class="row">
+	  		<form id="enForm" class="col-md-3 has-success">
+	  		<label class="control-label" for="inputDefault"><h4>English</h4></label>
+				<input type="text" class="form-control" id="inputDefault" ng-model="currentWordSolution.en" >
+			</form>
+			<form id="deForm" class="col-md-3">
+	  		<label class="control-label" for="inputDefault" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="{{currentWordSolution.de}}"><h4>Deutsch</h4></label>
+				<input type="text" class="form-control" id="inputDefault" ng-model="currentWordGuess.de" ng-change="checkIfTrue('de')">
+			</form>
+			<form id="itForm" class="col-md-3">
+	  		<label class="control-label" for="inputDefault" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="{{currentWordSolution.it}}"><h4>Italiano</h4></label>
+				<input type="text" class="form-control" id="inputDefault" ng-model="currentWordGuess.it" ng-change="checkIfTrue('it')">
+			</form>
+			<form id="frForm" class="col-md-3">
+	  		<label class="control-label" for="inputDefault" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="{{currentWordSolution.fr}}"><h4>Français</h4></label>
+				<input type="text" class="form-control" id="inputDefault" ng-model="currentWordGuess.fr" ng-change="checkIfTrue('fr')">
+			</form>
+			<div class="col-md-12 text-center">
+				<div style="width: 100%; padding: 30px">
+					<button id="showNext" class="btn btn-primary btn-md" ng-click="generateNextWord()">SHOW NEXT</button>
+			</div>
+		</div>
+	</div>
+</div>
