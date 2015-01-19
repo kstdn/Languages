@@ -32,6 +32,32 @@ endeitfr.factory('dataRequester', function($http, constants){
 					console.log(data);
 				})
 		},
+		getItemByEnWord: function(wordId, type, successcb){
+			$http({
+				method: 'GET', 
+				url: constants.baseUrl + "classes/" + type + "/" + wordId,
+				headers : headers})
+				.success(function(data, status, headers, config){
+					successcb(data);
+				})
+				.error(function(data, status, headers, config){
+					console.log(data);
+				})
+		},
+		editItem: function(updatedObject, wordId, type, successcb){
+			$http({
+				method: 'PUT', 
+				url: constants.baseUrl + "classes/" + type + "/" + wordId,
+				headers : headers,
+				data : updatedObject,
+				"content-type": "application/json"})
+				.success(function(data, status, headers, config){
+					successcb(data);
+				})
+				.error(function(data, status, headers, config){
+					console.log(data);
+				})
+		},
 		getWordCount: function(successcb){
 			$http({
 				method: 'GET', 

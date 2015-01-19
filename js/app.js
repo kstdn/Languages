@@ -1,7 +1,7 @@
 'use strict';
 
 var endeitfr = angular
-	.module("endeitfr", ['ngRoute'])
+	.module("endeitfr", ['ngRoute', 'angular-growl', 'ngAnimate'])
 	.config(function($routeProvider){
 		$routeProvider
 			.when('/home', {
@@ -12,7 +12,7 @@ var endeitfr = angular
 				templateUrl: './templates/verbs.html',
 				controller: 'verbsController'
 			})
-			.when('/edit', {
+			.when('/edit/:word', {
 				templateUrl: './templates/edit.html',
 				controller: 'editController'
 			})
@@ -21,5 +21,9 @@ var endeitfr = angular
 	.constant("constants", {
 	"baseUrl" : "https://api.parse.com/1/",
 	"appId" : "qMiyv9G6FvseU2FL60nIOexgBpSUhDRBczYiOekP",
-	"restApiKey" : "LzWVae77VjoH5KU3aRwi0UzvI6zlq3xNDOyfhAZT"
-});
+	"restApiKey" : "LzWVae77VjoH5KU3aRwi0UzvI6zlq3xNDOyfhAZT",
+	"languageTitles": {'en':'English', 'de':'Deutsch', 'it':'Italiano', 'fr':'Français', 'ru':'Росский', 'gr':'Ελληνικά'}
+	})
+	.config(['growlProvider', function(growlProvider) {
+  		growlProvider.globalTimeToLive(2000);
+	}]);

@@ -1,28 +1,37 @@
 'use strict';
 
-endeitfr.controller("homeController", function HomeController($scope, $route, dataRequester){
-	$scope.greeting = "Yello";
-	//dataRequester.getAllItems("verbs");
-	//dataRequester.getWordCount();
-	//dataRequester.getVerbsCount();
-	//dataRequester.changeWordCount(90);
-	//dataRequester.changeVerbsCount(76);
-	getRandomWord();
-	$scope.currentWordSolution = {};
-	$scope.currentWordGuess = {};
-
-
+endeitfr.controller("homeController", function HomeController($scope, $route, $location, constants, dataRequester){
+	$scope.constants = constants;
+	$scope.languageIndexesArray = ['de', 'it', 'fr', 'ru', 'gr'];
+	$(document).keypress(function(e) {
+	    if(e.which == 13) {
+	        $scope.generateNextWord();
+	    }
+	});
 	$(document).ready(function() {
     	$("body").tooltip({ selector: '[data-toggle=tooltip]' });
 	});
+	
+
+
+	getRandomWord();
+
+	$scope.currentWordSolution = {};
+	$scope.currentWordGuess = {};
+
 
 	function getRandomWord(){
 		dataRequester.getWordCount(function(data){
 			var rand = randomFromTo(0, data.results[0].wordRowCount);
 			dataRequester.getItem("word", rand, function(data){
 				$scope.currentWordSolution = data.results[0];
+				$("#" + $scope.languageIndexesArray[0] + "Form input").focus();
 			})
 		});
+	}
+
+	$scope.sendForEdit = function(currentWord){
+		$location.path("/edit/" + currentWord);
 	}
 
 	function randomFromTo(from, to){
@@ -40,7 +49,7 @@ endeitfr.controller("homeController", function HomeController($scope, $route, da
 				$("#deForm").hasClass("has-success") &&
 				$("#frForm").hasClass("has-success") &&
 				$("#itForm").hasClass("has-success")){
-				$("#showNext").removeClass("btn-primary").addClass("btn-success");
+				$("#showNextButton").removeClass("btn-primary").addClass("btn-success");
 			}
 		}
     }

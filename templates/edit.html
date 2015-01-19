@@ -9,13 +9,12 @@
 			<!-- Language text fields generator -->
 			<form id="{{lang}}Form" class="col-md-2" ng-repeat="lang in languageIndexesArray">
 	  		<label class="control-label" for="inputDefault" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="{{currentWordSolution[lang]}}"><h4>{{constants.languageTitles[lang]}}</h4></label>
-				<input type="text" class="form-control" id="inputDefault" ng-model="currentWordGuess[lang]" ng-change="checkIfTrue('{{lang}}')">
+				<input type="text" class="form-control" id="inputDefault" ng-model="currentWordSolution[lang]" ng-change="checkIfTrue('{{lang}}')">
 			</form>
 
 			<div class="col-md-12 text-center">
 				<div style="width: 100%; padding: 30px">
-					<button id="showNextButton" class="btn btn-primary btn-md" ng-click="generateNextWord()">SHOW NEXT</button>
-					<button id="editButton" class="btn btn-primary btn-md" ng-click="sendForEdit(currentWordSolution.objectId)">EDIT</button>
+					<button id="showNext" class="btn btn-primary btn-md" ng-click="processEdit()">CONFIRM EDIT</button>
 			</div>
 		</div>
 	</div>
