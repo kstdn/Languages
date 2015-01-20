@@ -9,3 +9,6 @@
 
     margin: auto;
 }
+.input-group-addon {
+	width: 90px;
+}

@@ -23,7 +23,7 @@ endeitfr.factory('dataRequester', function($http, constants){
 		getItem: function(type, skip, successcb){
 			$http({
 				method: 'GET', 
-				url: constants.baseUrl + "classes/" + type + "?limit=1&skip=" + skip,
+				url: constants.baseUrl + "classes/" + type + "?limit=1&skip=" + (skip - 1),
 				headers : headers})
 				.success(function(data, status, headers, config){
 					successcb(data);
@@ -32,10 +32,26 @@ endeitfr.factory('dataRequester', function($http, constants){
 					console.log(data);
 				})
 		},
-		getItemByEnWord: function(wordId, type, successcb){
+		getItemById: function(wordId, type, successcb){
 			$http({
 				method: 'GET', 
 				url: constants.baseUrl + "classes/" + type + "/" + wordId,
+				headers : headers})
+				.success(function(data, status, headers, config){
+					successcb(data);
+				})
+				.error(function(data, status, headers, config){
+					console.log(data);
+				})
+		},
+		getItemByWord: function(word, lang, type, successcb){
+			var paramsObject = {};
+			paramsObject[lang] = word;
+			var requestParams = JSON.stringify(paramsObject);
+			$http({
+				method: 'GET', 
+				url: constants.baseUrl + "classes/" + type + "?where=" + requestParams,
+				"content-type" : "application/json",
 				headers : headers})
 				.success(function(data, status, headers, config){
 					successcb(data);
@@ -51,6 +67,19 @@ endeitfr.factory('dataRequester', function($http, constants){
 				headers : headers,
 				data : updatedObject,
 				"content-type": "application/json"})
+				.success(function(data, status, headers, config){
+					successcb(data);
+				})
+				.error(function(data, status, headers, config){
+					console.log(data);
+				})
+		},
+		addItem: function(word, type, successcb){
+			$http({
+				method: 'POST', 
+				url: constants.baseUrl + "classes/" + type,
+				headers : headers,
+				data : word})
 				.success(function(data, status, headers, config){
 					successcb(data);
 				})
