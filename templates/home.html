@@ -1,35 +1,42 @@
 <div id="content" class="col-md-8">
 	<div class="row" id="languagesTextFields">
 		<!-- Default english word -->
-  		<form id="enForm" class="col-md-{{widthOfFields}} has-success">
+  		<div class="col-md-{{widthOfFields}}">
+  		<form id="enForm" class="has-success">
   		<label class="control-label" for="inputDefault"><h4>English</h4></label>
 			<input type="text" class="form-control" id="inputDefault" ng-model="currentWordSolution.en" ng-if="currentAction != 'Add'">
 			<input type="text" class="form-control" id="inputDefault" ng-model="wordToAdd.en" ng-if="currentAction == 'Add'">
 		</form>
+		<div class="panel panel-default" style="margin-top:20px" ng-if="currentWordSolution.notes != undefined">
+			<div class="panel-heading">Notes</div>
+        	<textarea class="form-control" style="border: none" rows="1" id="textArea" ng-model="currentWordSolution.notes"></textarea>
+		</div>
+		</div>
 
 		<div ng-if="currentType != 'verbs'">
 		<form id="{{lang}}Form" class="col-md-{{widthOfFields}}" ng-repeat="lang in languageIndexesArray">
-  		<label class="control-label" for="inputDefault" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="{{currentWordSolution[lang]}}"><h4>{{constants.languageTitles[lang]}}</h4></label>
+  		<label class="control-label" for="inputDefault" data-toggle="tooltip" data-placement="right" title="" data-original-title="{{currentWordSolution[lang]}}"><h4>{{constants.languageTitles[lang]}}  </h4></label><span class="glyphicon glyphicon-play-circle" ng-click="fetchPronunciations(currentWordSolution[lang], lang)"></span>
 			<input type="text" class="form-control" id="inputDefault" ng-model="currentWordGuess[lang]" ng-change="checkIfTrue('{{lang}}')" ng-if="currentAction == 'Guess'">
 			<input type="text" class="form-control" id="inputDefault" ng-model="currentWordSolution[lang]" ng-if="currentAction == 'Edit'">
 			<input type="text" class="form-control" id="inputDefault" ng-model="wordToAdd[lang]" ng-if="currentAction == 'Add'">
-		</form>
+			</form>
 		</div>
 
 
 		<div ng-if="currentType == 'verbs'">
   		<form id="deForm" class="col-md-{{widthOfFields}}">
-  		<label class="control-label" for="inputDefault"><h4>Deutsch</h4></label>
+  		<label class="control-label" for="inputDefault" data-toggle="tooltip" data-placement="right" title="" data-original-title="{{currentWordSolution['de']}}"><h4>Deutsch</h4></label>
 			<input type="text" class="form-control" id="inputDefault" ng-model="currentWordGuess.de" ng-change="checkIfTrue('de')" ng-if="currentAction == 'Guess'">
+
 			<input type="text" class="form-control" id="inputDefault" ng-model="currentWordSolution.de" ng-if="currentAction == 'Edit'">
 			<input type="text" class="form-control" id="inputDefault" ng-model="wordToAdd['de']" ng-if="currentAction == 'Add'">
 		</form>
 
 		<div id="{{lang}}Form" class="col-md-{{widthOfFields}}" ng-repeat="lang in languageIndexesArray" ng-show="!$first">
-  		<label class="control-label" for="inputDefault" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="{{currentWordSolution[lang]}}"><h4>{{constants.languageTitles[lang]}}</h4></label>
+  		<label class="control-label" for="inputDefault"><h4>{{constants.languageTitles[lang]}}</h4></label>
 			<form id="{{lang}}-{{$index}}" ng-repeat = "i in currentWordSolution[lang]">
 			<div class="input-group">
-			<span class="input-group-addon">{{constants.pronouns[lang][$index]}}</span>
+			<span class="input-group-addon" data-toggle="tooltip" data-placement="right" title="" data-original-title="{{currentWordSolution[lang][$index]}}">{{constants.pronouns[lang][$index]}}</span>
 			<input type="text" class="form-control {{lang}}-{{$index}}-input" ng-model="currentWordGuess[lang][$index]" ng-change="checkIfTrueForVerbs('{{lang}}', $index)" ng-if="currentAction == 'Guess'">
 			<input type="text" class="form-control {{lang}}-{{$index}}-input" ng-model="currentWordSolution[lang][$index]" ng-if="currentAction == 'Edit'">
 			<input type="text" class="form-control {{lang}}-{{$index}}-input" ng-model="wordToAdd[lang][$index]" ng-if="currentAction == 'Add'">
@@ -37,6 +44,7 @@
 			</form>
 		</div>
 		</div>
+
 
 		<div class="col-md-12 text-center">
 			<div style="width: 100%; padding: 30px" ng-if="currentAction == 'Guess'">
