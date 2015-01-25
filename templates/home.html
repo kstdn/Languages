@@ -7,9 +7,10 @@
 			<input type="text" class="form-control" id="inputDefault" ng-model="currentWordSolution.en" ng-if="currentAction != 'Add'">
 			<input type="text" class="form-control" id="inputDefault" ng-model="wordToAdd.en" ng-if="currentAction == 'Add'">
 		</form>
-		<div class="panel panel-default" style="margin-top:20px" ng-if="currentWordSolution.notes != undefined">
+		<div class="panel panel-default" style="margin-top:20px" ng-show="currentWordSolution.notes != undefined">
 			<div class="panel-heading">Notes</div>
-        	<textarea class="form-control" style="border: none" rows="1" id="textArea" ng-model="currentWordSolution.notes"></textarea>
+        	<textarea class="form-control" style="border: none" rows="1" id="textArea" ng-if="currentAction != 'Add'" ng-model="currentWordSolution.notes"></textarea>
+        	<textarea class="form-control" style="border: none" rows="1" id="textArea" ng-if="currentAction == 'Add'" ng-model="wordToAdd.notes"></textarea>
 		</div>
 		</div>
 

@@ -1,6 +1,6 @@
 'use strict';
 
-endeitfr.controller("homeWithParamsController", function HomeWithParamsController($scope, $route, $location, $routeParams, constants, dataRequester){
+endeitfr.controller("homeWithParamsController", function HomeWithParamsController($scope, $route, $location, $routeParams, constants, dataRequester, growl){
 	$scope.constants = constants;
 	$scope.languageIndexesArray = constants.languageIndexesArray;
 	$scope.pronouns = constants.pronouns;
@@ -24,23 +24,13 @@ endeitfr.controller("homeWithParamsController", function HomeWithParamsControlle
 	function getWord(word, lang, type){
 		dataRequester.getItemByWord(word, lang, type, function(data){
 			$scope.currentWordSolution = data.results[0];
+			if($scope.currentWordSolution == undefined){
+				growl.warning("Word not found!");
+				$location.path("home/" + $scope.currentType);
+			}
 			generateGuessObject();
 			$("#" + $scope.languageIndexesArray[0] + "Form input").focus();
 		})
-	}
-
-	function getRandomWord(type){
-		var countIdentifier = type + "RowCount";
-		dataRequester.getWordCount(function(data){
-			var rand = randomFromTo(1, data.results[0][countIdentifier]);
-			dataRequester.getItem(type, rand, function(data){
-				
-				$scope.currentWordSolution = data.results[0];
-				generateGuessObject();
-				$("#" + $scope.languageIndexesArray[0] + "Form input").focus();
-				
-			})
-		});
 	}
 
 	function generateGuessObject(){
@@ -64,10 +54,6 @@ endeitfr.controller("homeWithParamsController", function HomeWithParamsControlle
 	$scope.sendForEdit = function(currentWord){
 		$location.path("/edit/" + $scope.currentType + "/" + currentWord);
 	}
-
-	function randomFromTo(from, to){
-       return Math.floor(Math.random() * (to - from + 1) + from);
-    }
 
     $scope.generateNextWord = function(){
     	$route.reload();

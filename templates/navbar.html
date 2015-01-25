@@ -11,9 +11,18 @@
     <ul class="nav navbar-nav">
       <li><a href="#/home/words">Words</a></li>
       <li><a href="#/home/verbs">Verbs</a></li>
+      <li><a href="#/add/words">Add word</a></li>
+      <li><a href="#/add/verbs">Add verb</a></li>
     </ul>
     <form class="navbar-form navbar-left" _lpchecked="1">
-      <input type="text" class="form-control col-lg-8" placeholder="Search">
+      <input type="text" class="form-control col-lg-8" id="searchByWord" ng-model="wordToSearch" placeholder="Search"></input>
+        <select class="form-control" id="select" ng-model="languageToSearch" ng-show="wordToSearch">
+          <option><a href="">en</a></option>
+          <option><a href="">de</a></option>
+          <option><a href="">it</a></option>
+          <option><a href="">fr</a></option>
+        </select>
+      <a href="" class="btn btn-default" ng-click="processSearch(wordToSearch, languageToSearch)">Search</a>
     </form>
   </div>
 </div>

@@ -17,8 +17,6 @@ endeitfr.controller("homeController", function HomeController($scope, $route, $l
 	$scope.currentAction = "Guess";
 	$scope.currentType = $routeParams.type;
 
-	
-
 	$scope.fetchPronunciations = function(word, lang) {
 	  	var baseURL = 'http://apifree.forvo.com/key/2350d616232f51021bf2f076ac6e20c6/format/json/action/word-pronunciations/word/';
 	    var url = baseURL + encodeURIComponent(word);
