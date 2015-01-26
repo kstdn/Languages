@@ -23,6 +23,8 @@ endeitfr.controller("addController", function AddController($scope, $route, $rou
 
 	if($scope.currentType == "verbs"){
 		getDummyWord($scope.currentType)
+	} else {
+		$scope.wordToAdd = {};
 	}
 
 	function getDummyWord(type){
