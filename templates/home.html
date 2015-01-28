@@ -7,7 +7,7 @@
 			<input type="text" class="form-control" id="inputDefault" ng-model="currentWordSolution.en" ng-if="currentAction != 'Add'">
 			<input type="text" class="form-control" id="inputDefault" ng-model="wordToAdd.en" ng-if="currentAction == 'Add'">
 		</form>
-		<div class="panel panel-default" style="margin-top:20px" ng-show="currentWordSolution.notes != undefined">
+		<div class="panel panel-default" style="margin-top:20px" ng-show="currentWordSolution.notes != undefined || currentAction == 'Edit'">
 			<div class="panel-heading">Notes</div>
         	<textarea class="form-control" style="border: none" rows="1" id="textArea" ng-if="currentAction != 'Add'" ng-model="currentWordSolution.notes"></textarea>
         	<textarea class="form-control" style="border: none" rows="1" id="textArea" ng-if="currentAction == 'Add'" ng-model="wordToAdd.notes"></textarea>
@@ -53,7 +53,8 @@
 				<button id="editButton" class="btn btn-primary btn-md" ng-click="sendForEdit(currentWordSolution.objectId)">EDIT</button>
 			</div>
 			<div style="width: 100%; padding: 30px" ng-if="currentAction == 'Edit'">
-				<button id="showNext" class="btn btn-primary btn-md" ng-click="processEdit()">CONFIRM EDIT</button>
+				<button id="confirmEdit" class="btn btn-primary btn-md" ng-click="processEdit()">CONFIRM EDIT</button>
+				<button id="deleteItem" class="btn btn-danger btn-md" ng-click="processDelete()">DELETE</button>
 			</div>
 			<div style="width: 100%; padding: 30px" ng-if="currentAction == 'Add'">
 				<button id="showNext" class="btn btn-primary btn-md" ng-click="processAddition()">ADD</button>

@@ -7,7 +7,7 @@ endeitfr.controller("editController", function EditController($scope, $route, $r
 	$scope.widthOfFields = (12 - (12 % ($scope.languageIndexesArray.length + 1))) / ($scope.languageIndexesArray.length + 1);
 	$(document).keypress(function(e) {
 	    if(e.which == 13) {
-	        $scope.processEdit($scope.currentType);
+	        //$scope.processEdit($scope.currentType);
 	    }
 	});
 
@@ -33,6 +33,14 @@ endeitfr.controller("editController", function EditController($scope, $route, $r
 		dataRequester.editItem($scope.currentWordSolution, $scope.wordForEditId, $scope.currentType, function(){
 			growl.success("Successfully edited!");
 			$location.path("/home/" + $scope.currentType)
+		})
+	}
+
+	$scope.processDelete = function(){
+		dataRequester.deleteItem($scope.wordForEditId, $scope.currentType, function(){
+			dataRequester.incrementCount($scope.currentType, -1);
+			growl.success("Successfully deleted!");
+			$location.path("/home/" + $scope.currentType);
 		})
 	}
 

@@ -7,22 +7,19 @@ endeitfr.controller("addController", function AddController($scope, $route, $rou
 	$scope.widthOfFields = (12 - (12 % ($scope.languageIndexesArray.length + 1))) / ($scope.languageIndexesArray.length + 1);
 	$(document).keypress(function(e) {
 	    if(e.which == 13) {
-	        $scope.processEdit($scope.currentType);
+	        $scope.processAddition($scope.currentType);
 	    }
 	});
-	// $(document).ready(function() {
- //    	$("body").tooltip({ selector: '[data-toggle=tooltip]' });
-	// });
 
 	$scope.currentAction = "Add";
 	$scope.currentType = $routeParams.type;
 	$scope.currentWordSolution = {};
 	$scope.currentWordSolution.notes = "dummy";
-	
-	//getDummyWord($scope.currentType);
 
 	if($scope.currentType == "verbs"){
 		getDummyWord($scope.currentType)
+	} else {
+		$scope.wordToAdd = {};
 	}
 
 	function getDummyWord(type){
@@ -48,6 +45,7 @@ endeitfr.controller("addController", function AddController($scope, $route, $rou
 
 	$scope.processAddition = function(){
 		dataRequester.addItem($scope.wordToAdd, $scope.currentType, function(){
+			dataRequester.incrementCount($scope.currentType, 1);
 			growl.success("Successfully added!");
 			$route.reload();
 		})

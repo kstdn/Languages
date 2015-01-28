@@ -74,6 +74,19 @@ endeitfr.factory('dataRequester', function($http, constants){
 					console.log(data);
 				})
 		},
+		deleteItem: function(wordId, type, successcb){
+			$http({
+				method: 'DELETE', 
+				url: constants.baseUrl + "classes/" + type + "/" + wordId,
+				headers : headers
+				})
+				.success(function(data, status, headers, config){
+					successcb(data);
+				})
+				.error(function(data, status, headers, config){
+					console.log(data);
+				})
+		},
 		addItem: function(word, type, successcb){
 			$http({
 				method: 'POST', 
@@ -105,6 +118,23 @@ endeitfr.factory('dataRequester', function($http, constants){
 				url: constants.baseUrl + "classes/count/cryu93LC9U",
 				headers : headers,
 				data: {"wordRowCount" : newCount}
+			})
+				.success(function(data, status, headers, config){
+					console.log(data);
+				})
+				.error(function(data, status, headers, config){
+					console.log(data);
+				})
+		},
+		incrementCount: function(type, amount){
+			var typeString = type + "RowCount";
+			var updatedObject = {};
+			updatedObject[typeString] = {"__op":"Increment","amount":amount};
+			$http({
+				method: 'PUT', 
+				url: constants.baseUrl + "classes/count/cryu93LC9U",
+				headers : headers,
+				data: updatedObject
 			})
 				.success(function(data, status, headers, config){
 					console.log(data);
